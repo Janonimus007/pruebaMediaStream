@@ -15,6 +15,8 @@ import './assets/styles.css'
 import { useState } from 'react'
 
 export default function Exercise01 () {
+  const precioTotal =0
+  const sumador = 0
   const movies = [
     {
       id: 1,
@@ -53,16 +55,43 @@ export default function Exercise01 () {
     } 
   ]
 
-  const [cart, setCart] = useState([
-    {
-      id: 1,
-      name: 'Star Wars',
-      price: 20,
-      quantity: 2
+  const [cart, setCart] = useState([])
+  const addCart = producto =>{
+    const ProductoExtiste = cart.find((item)=>item.id ===producto.id)
+    if(ProductoExtiste){
+      setCart(
+        cart.map((item)=>
+          item.id === producto.id
+          ? {...ProductoExtiste,quantity:ProductoExtiste.quantity +1}
+          :item
+        
+      ))
     }
-  ])
-
-  const getTotal = () => 0 // TODO: Implement this
+    else{
+      setCart([...cart,{...producto,quantity:1}])
+    }
+  }
+  const menosProducto = producto =>{
+    const ProductoExtiste = cart.find((item)=>item.id ===producto.id)
+    if(ProductoExtiste.quantity ===1){
+      setCart(cart.filter((item)=>item.id!==producto.id))
+    }else{
+      setCart(
+        cart.map((item)=>
+          item.id===producto.id
+          ?{...ProductoExtiste,quantity:ProductoExtiste.quantity-1}
+          :item
+        )
+      )
+    }
+    
+  }
+  
+  const getTotal = cart.reduce(
+    (price,item)=>price + item.quantity * item.price, 0
+  ) 
+    
+  // TODO: Implement this
 
   return (
     <section className="exercise01">
@@ -81,13 +110,14 @@ export default function Exercise01 () {
                   Price: ${o.price}
                 </li>
               </ul>
-              <button onClick={() => console.log('Add to cart', o)}>
+              <button onClick={()=>addCart(o)}>
                 Add to cart
               </button>
             </li>
           ))}
         </ul>
       </div>
+      {cart.length === 0 ?<p>No se han agregado productos al carrito aun</p>:
       <div className="movies__cart">
         <ul>
           {cart.map(x => (
@@ -104,13 +134,13 @@ export default function Exercise01 () {
                 </li>
               </ul>
               <div className="movies__cart-card-quantity">
-                <button onClick={() => console.log('Decrement quantity', x)}>
+                <button onClick={() => menosProducto(x)}>
                   -
                 </button>
                 <span>
                   {x.quantity}
                 </span>
-                <button onClick={() => console.log('Increment quantity', x)}>
+                <button onClick={() => addCart(x)}>
                   +
                 </button>
               </div>
@@ -118,9 +148,9 @@ export default function Exercise01 () {
           ))}
         </ul>
         <div className="movies__cart-total">
-          <p>Total: ${getTotal()}</p>
+          <p>Total: ${getTotal}</p>
         </div>
-      </div>
+      </div>}
     </section>
   )
 } 
