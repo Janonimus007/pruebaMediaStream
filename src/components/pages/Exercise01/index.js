@@ -93,6 +93,10 @@ export default function Exercise01 () {
     
   // TODO: Implement this
 
+  const borrarCarrito = ()=>{
+    setCart([])
+  }
+
   return (
     <section className="exercise01">
       <div className="movies__list">
@@ -150,6 +154,7 @@ export default function Exercise01 () {
         <div className="movies__cart-total">
           <p>Total: ${getTotal}</p>
         </div>
+        <button className="borrarCarrito" onClick={borrarCarrito}>Borrar carrito</button>
       </div>}
     </section>
   )

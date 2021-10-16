@@ -55,3 +55,29 @@
 .movie-library__card li {
   line-height: 120%;
 }
+.movieCard{
+  list-style-type: style none;
+  font-size: 1.5rem;
+}
+.movieImage{
+  border-radius: 10px;
+  background-color: azure;
+  color: black;
+}
+.moviesGrid{
+  display: grid;
+  grid-template-columns: repeat(auto-fill,400px);
+  gap:40px;
+  padding: 40px;
+  justify-content: center;
+  margin-top: 20px;
+}
+.fondo{
+  background-image: url(./mountains.jpeg);
+  height: 200px;
+  background-position:0%;
+}
+.ascend{
+  background-color: lawngreen;
+  width: 50px;
+}
