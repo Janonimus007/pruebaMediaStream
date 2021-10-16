@@ -21,6 +21,7 @@ export default function Exercise02 () {
   const [loading, setLoading] = useState(false)
   const [genres,setGenres]=useState(["All"])
   const[genreValue,setGenreValue]=useState()
+  const [order, setorder] = useState("asce")
   const handleMovieFetch = () => {
     setLoading(true)
     setFetchCount(fetchCount + 1)
@@ -50,6 +51,23 @@ export default function Exercise02 () {
         console.log(err)
       })
   }, [])
+
+  const orderArray = (e)=>{
+    if(order === "asce"){
+    const sorted =[...movies].sort((a,b)=>
+      a[e]>b[e]?1:-1
+    )
+    setMovies(sorted)
+
+   }
+   else{
+    const sorted =[...movies].sort((a,b)=>
+      a[e]<b[e]?1:-1
+    )
+    setMovies(sorted)
+    
+  }
+  }
  
   return (
     <section className="movie-library">
@@ -69,8 +87,8 @@ export default function Exercise02 () {
            return <option  value={e}>{e}</option>
          })}
         </select>
-        <button className="ascend">desc</button>
-        <button className="ascend">asce</button>
+        <button className="ascend" onClick={()=>{setorder("desc")}} onClick={(e)=>{movies.map(ee=>{orderArray(ee.year)})}}>desc</button>
+        <button className="ascend" onClick={()=>{setorder("asce")}} onClick={(e)=>{movies.map(ee=>{orderArray(ee.year)})}}>asce</button>
 
         </div>
       </div>
